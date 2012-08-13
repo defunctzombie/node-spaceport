@@ -1,6 +1,6 @@
 {
   "name": "spaceport",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "decentralized service registry for nodejs",
   "main": "index.js",
   "directories": {
