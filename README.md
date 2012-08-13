@@ -1,4 +1,4 @@
-# Spaceport
+# Spaceport [![Build Status](https://secure.travis-ci.org/shtylman/node-spaceport.png?branch=master)](http://travis-ci.org/shtylman/node-spaceport)
 
 Spaceport is a decentralized service registry for nodejs. There is no central server to maintain or register with. Processes communicate peer-to-peer over multicast (similar to zeroconf/mdns).
 
