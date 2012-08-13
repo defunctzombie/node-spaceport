@@ -1,0 +1,10 @@
+{
+  "name": "proxy-example",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "spaceport": "*",
+    "http-proxy": "*",
+    "book": "*"
+  }
+}
