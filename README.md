@@ -41,3 +41,8 @@ browser.on('down', function() {
 // to stop the service and announce it should not longer be available
 service.stop();
 ```
+
+# api
+
+see the wiki for additional details: https://github.com/shtylman/node-spaceport/wiki
+
