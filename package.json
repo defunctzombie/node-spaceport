@@ -11,7 +11,7 @@
     "mocha": "~1.3.2"
   },
   "scripts": {
-    "test": "mocha"
+    "test": "mocha --reporter list"
   },
   "repository": {
     "type": "git",

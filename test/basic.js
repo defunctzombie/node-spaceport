@@ -80,3 +80,22 @@ test('IP SINGLE', function(done) {
         done();
     });
 });
+
+// detect when the service goes offline with no shutdown message
+test('service crash', function(done) {
+    var service = spaceport.service('test', { port: 1234 }).start();
+    var browser = spaceport.browser('test').start();
+
+    var ident;
+
+    browser.on('up', function(info) {
+        ident = info.ident;
+        service.kill();
+    });
+
+    browser.on('down', function(info) {
+        browser.stop();
+        assert.equal(ident, info.ident);
+        done();
+    });
+});
