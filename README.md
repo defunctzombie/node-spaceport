@@ -1,8 +1,10 @@
-# Spaceport [![Build Status](https://secure.travis-ci.org/shtylman/node-spaceport.png?branch=master)](http://travis-ci.org/shtylman/node-spaceport)
+# Spaceport [![Build Status](https://secure.travis-ci.org/defunctzombie/node-spaceport.png?branch=master)](http://travis-ci.org/defunctzombie/node-spaceport)
 
 Spaceport is a decentralized service registry for nodejs. There is no central server to maintain or register with. Processes communicate peer-to-peer over multicast (similar to zeroconf/mdns).
 
 Spaceport works great when you have any processes that need to talk to one another but you don't want to predefine their locations or ports.
+
+** This module only works with node 0.10+ **
 
 # install
 
@@ -44,5 +46,5 @@ service.stop();
 
 # api
 
-see the wiki for additional details: https://github.com/shtylman/node-spaceport/wiki
+see the wiki for additional details: https://github.com/defunctzombie/node-spaceport/wiki
 
