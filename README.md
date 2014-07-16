@@ -23,25 +23,33 @@ var service = spaceport.service('service name', { port: 1234 });
 // the service will now announce it is available and capable of responding to requests
 service.start();
 
+// to stop the service and announce it should not longer be available
+service.stop();
+```
+
+To listen to a particular service.
+```javascript
 // create a browser to tell us when this service comes online
 var browser = spaceport.browser('service name').start();
 
 // service is available
-browser.on('up', function(info) {
+browser.on('up', function(service) {
+
+    // unique identifier for the service
+    service.ident
 
     // hostname of the service box (obtained with os.hostname)
-    info.host
+    service.host
 
-    // port the service is listening on
-    info.port
+    // custom information for the service
+    // these details are passed in when the service is created
+    // { port: 1234 } above is the details
+    service.details
+
+    // the service is offline will trigger a down event
+    service.once('down', function() {
+    });
 });
-
-// service is no longer up
-browser.on('down', function() {
-});
-
-// to stop the service and announce it should not longer be available
-service.stop();
 ```
 
 # api

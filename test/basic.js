@@ -12,17 +12,18 @@ test('updown', function(done) {
     var ident;
 
     browser.on('up', function(info) {
-        assert.equal(info.port, 1234);
+        assert.equal(info.details.port, 1234);
         assert.equal(info.host, k_hostname);
 
         ident = info.ident;
-        service.stop();
-    });
 
-    browser.on('down', function(info) {
-        browser.stop();
-        assert.equal(ident, info.ident);
-        done();
+        info.once('down', function(info) {
+            assert.equal(ident, info.ident);
+            browser.stop();
+            done();
+        });
+
+        service.stop();
     });
 });
 
@@ -38,19 +39,21 @@ test('IP ALL', function(done) {
     var ident;
 
     browser.on('up', function(info) {
-        assert.equal(info.port, 1234);
         assert.equal(info.host, k_hostname);
+        assert.equal(info.details.port, 1234);
         assert.equal(info.ips.length, Object.keys(os.networkInterfaces()).length);
 
         ident = info.ident;
+
+        info.once('down', function(info) {
+            browser.stop();
+            assert.equal(ident, info.ident);
+            done();
+        });
+
         service.stop();
     });
 
-    browser.on('down', function(info) {
-        browser.stop();
-        assert.equal(ident, info.ident);
-        done();
-    });
 });
 
 /// when a single IP is provided for the service, that ip should be the only one
@@ -65,20 +68,21 @@ test('IP SINGLE', function(done) {
     var ident;
 
     browser.on('up', function(info) {
-        assert.equal(info.port, 1234);
+        assert.equal(info.details.port, 1234);
         assert.equal(info.host, k_hostname);
         assert.equal(info.ips.length, 1);
         assert.deepEqual(info.ips[0], { address: '1.2.3.4', family: 'IPv4' });
 
         ident = info.ident;
+        info.once('down', function(info) {
+            browser.stop();
+            assert.equal(ident, info.ident);
+            done();
+        });
+
         service.stop();
     });
 
-    browser.on('down', function(info) {
-        browser.stop();
-        assert.equal(ident, info.ident);
-        done();
-    });
 });
 
 // detect when the service goes offline with no shutdown message
@@ -90,12 +94,13 @@ test('service crash', function(done) {
 
     browser.on('up', function(info) {
         ident = info.ident;
+        info.on('down', function(info) {
+            browser.stop();
+            assert.equal(ident, info.ident);
+            done();
+        });
+
         service.kill();
     });
 
-    browser.on('down', function(info) {
-        browser.stop();
-        assert.equal(ident, info.ident);
-        done();
-    });
 });
